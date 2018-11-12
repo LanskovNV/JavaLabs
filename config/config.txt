@@ -1,0 +1,3 @@
+input: prestuplenie.txt
+output :output.txt
+params : params.txt
