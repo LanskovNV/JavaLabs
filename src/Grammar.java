@@ -23,7 +23,7 @@ public class Grammar {
     }
 
     EnumMap <keys, String> parser() throws IOException{
-        File cfg = new File("D:\\YandexDisk\\JavaProj\\config\\" + fileName );
+        File cfg = new File("C:\\POLY\\JavaLabs\\config\\" + fileName );
         Scanner scanner;
 
         try {

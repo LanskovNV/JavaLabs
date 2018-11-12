@@ -3,7 +3,7 @@ import java.util.EnumMap;
 
 public class MainClass {
     public static void main(String Args[]) {
-        Error log = new Error("D:\\YandexDisk\\JavaProj\\config\\log.txt");
+        Error log = new Error("C:\\POLY\\JavaLabs\\config\\log.txt");
 
         if (Args.length != 1) {
             log.message("incorrect cmd arguments, should be config file name");
