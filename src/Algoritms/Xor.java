@@ -1,12 +1,17 @@
+package Algoritms;
+
+import Source.Grammar;
+import Source.keys;
+
 import java.io.*;
 import java.util.EnumMap;
 
-class Crypt {
+public class Xor implements Crypt{
     int keylen;
     int buf_len;
     String key;
 
-    Crypt(String params) throws IOException{
+    public Xor(String params) throws IOException{
         Grammar g = new Grammar(params);
         EnumMap<keys, String> m = g.parser();
 
@@ -15,7 +20,7 @@ class Crypt {
         keylen = key.length();
     }
 
-    void encode(String input, String output) throws IOException {
+    public void encode(String input, String output) throws IOException {
          try {
             FileInputStream fin = new FileInputStream(input);
             FileOutputStream fout = new FileOutputStream(output);
@@ -42,7 +47,7 @@ class Crypt {
         }
     }
 
-    void decode(String input, String output) throws IOException {
+    public void decode(String input, String output) throws IOException {
         encode(input, output);
     }
 }
