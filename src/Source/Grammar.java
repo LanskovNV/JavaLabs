@@ -1,3 +1,5 @@
+package Source;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.EnumMap;
@@ -17,13 +19,13 @@ public class Grammar {
         strEnum.put("keyword", keys.keyword);
         strEnum.put("buffer_len", keys.buffer_len);
     }
-    Grammar(String s) {
+    public Grammar(String s) {
         fileName = s;
         ans = new EnumMap<keys, String>(keys.class);
     }
 
-    EnumMap <keys, String> parser() throws IOException{
-        File cfg = new File("C:\\POLY\\JavaLabs\\config\\" + fileName );
+    public EnumMap <keys, String> parser() throws IOException{
+        File cfg = new File("//home//leins275//Projects//JavaLabs//config//" + fileName );
         Scanner scanner;
 
         try {

@@ -1,10 +1,12 @@
+package Source;
+
 import java.io.*;
 
 public class Error {
     File log;
     BufferedWriter fileLog;
 
-    Error(String fileName) {
+    public Error(String fileName) {
         log = new File(fileName);
 
         if (!log.exists()) {
@@ -24,7 +26,7 @@ public class Error {
         }
     }
 
-    void message(String msg) {
+    public void message(String msg) {
         try {
             fileLog.write(msg);
         }
