@@ -1,6 +1,0 @@
-package Pipeline;
-
-public enum WorkerTask {
-    straight, // encode, compress, e.t.c...
-    reverse   // dencode, decompress, e.t.c...
-}

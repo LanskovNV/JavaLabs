@@ -1,53 +1,45 @@
 package Algoritms;
 
-import Source.Grammar;
+import java.util.EnumMap;
 import Source.keys;
 
-import java.io.*;
-import java.util.EnumMap;
-
-public class Xor implements Crypt{
+public class Xor {
     int keylen;
-    int buf_len;
     String key;
+    String task;
 
-    public Xor(String params) throws IOException{
-        Grammar g = new Grammar(params);
-        EnumMap<keys, String> m = g.parser();
-
-        buf_len = Integer.valueOf(m.get(keys.buffer_len));
+    public Xor(EnumMap<keys, String> m) {
         key = m.get(keys.keyword);
+        task = m.get(keys.worker_type);
         keylen = key.length();
     }
 
-    public void encode(String input, String output) throws IOException {
-         try {
-            FileInputStream fin = new FileInputStream(input);
-            FileOutputStream fout = new FileOutputStream(output);
-
-            byte[] buffer = new byte[buf_len];
-            int cnt = 0;
-
-            do {
-                cnt = fin.read(buffer);
-                byte[] encstr = new byte[buf_len];
-
-                for (int i = 0, j = 0; i < cnt; i++) {
-                    encstr[i] = (byte)(buffer[i] ^ key.charAt(j++));
-                    if (j == keylen) { j = 0; }
-                }
-                fout.write(encstr, 0, cnt);
-            } while (cnt == buf_len);
-
-            fin.close();
-            fout.close();
-        }
-        catch (IOException exc) {
-             throw exc;
-        }
+    public byte[] selectTask(byte[] buffer) {
+         switch (task) {
+             case "encode":
+                 return this.encode(buffer);
+             case "decode":
+                 return this.decode(buffer);
+             default:
+                 return null;
+         }
     }
 
-    public void decode(String input, String output) throws IOException {
-        encode(input, output);
+    public byte[] encode(byte[] buffer) {
+        int cnt = 0;
+
+        cnt = buffer.length;
+        byte[] encstr = new byte[cnt];
+
+        for (int i = 0, j = 0; i < cnt; i++) {
+            encstr[i] = (byte)(buffer[i] ^ key.charAt(j++));
+            if (j == keylen) { j = 0; }
+        }
+
+        return encstr;
+    }
+
+    public byte[] decode(byte[] buffer) {
+        return encode(buffer);
     }
 }
