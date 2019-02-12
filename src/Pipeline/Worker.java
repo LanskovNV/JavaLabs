@@ -52,12 +52,17 @@ public class Worker implements Executor {
     }
 
     public int put(Object obj) throws IOException{
-        buffer = alg.selectTask(obj.getClass());
+        byte[] newBuffer = (byte[])obj;
+        int cnt = ;
 
+        for (int i = 0 ; i < cnt; i++) {
+            buffer = null;
+            buffer = alg.selectTask();
+        }
         if (isLast) {
-            output.write(res);
+            output.write(buffer);
         } else {
-            consumer.put(res);
+            consumer.put(buffer);
         }
 
         return 0;
