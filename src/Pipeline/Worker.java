@@ -3,6 +3,7 @@ package Pipeline;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.EnumMap;
 
 import Algoritms.Xor;
@@ -10,13 +11,10 @@ import Source.Grammar;
 import Source.keys;
 
 public class Worker implements Executor {
-
     Executor consumer;
     DataInputStream input;
     DataOutputStream output;
-
     Xor alg;
-
     boolean isFirst, isLast;
     byte[] buffer;
 
@@ -29,7 +27,6 @@ public class Worker implements Executor {
 
         Grammar g = new Grammar(params);
         EnumMap<keys, String> m = g.parser();
-
         alg = new Xor(m);
     }
 
@@ -53,11 +50,15 @@ public class Worker implements Executor {
 
     public int put(Object obj) throws IOException{
         byte[] newBuffer = (byte[])obj;
-        int cnt = ;
 
-        for (int i = 0 ; i < cnt; i++) {
-            buffer = null;
-            buffer = alg.selectTask();
+        int nIter = newBuffer.length / buffer.length;
+        int cnt = (newBuffer.length % buffer.length) == 0 ? nIter : ++nIter;
+
+        for (int i = 0 ; i < cnt ; i++) {
+            Arrays.fill(buffer, (byte) 0);
+            byte[] buf = Arrays.copyOfRange(buffer, i*)
+            alg.selectTask()
+
         }
         if (isLast) {
             output.write(buffer);
