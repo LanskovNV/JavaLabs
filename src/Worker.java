@@ -1,14 +1,8 @@
-package Pipeline;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.EnumMap;
-
-import Algoritms.Xor;
-import Source.ManagerGrammar;
-import Source.BaseKeys;
 
 public class Worker implements Executor {
     Executor consumer;
