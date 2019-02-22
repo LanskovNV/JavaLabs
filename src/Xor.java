@@ -1,16 +1,14 @@
-package Algoritms;
-
 import java.util.EnumMap;
-import Source.keys;
+import Source.BaseKeys;
 
 public class Xor {
     int keylen;
     String key;
     String task;
 
-    public Xor(EnumMap<keys, String> m) {
-        key = m.get(keys.keyword);
-        task = m.get(keys.worker_type);
+    public Xor(EnumMap<BaseKeys, String> m) {
+        key = m.get(BaseKeys.keyword);
+        task = m.get(BaseKeys.type);
         keylen = key.length();
     }
 
