@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.EnumMap;
 
 import Algoritms.Xor;
-import Source.Grammar;
-import Source.keys;
+import Source.ManagerGrammar;
+import Source.BaseKeys;
 
 public class Worker implements Executor {
     Executor consumer;
@@ -25,8 +25,8 @@ public class Worker implements Executor {
         isFirst = first;
         isLast = last;
 
-        Grammar g = new Grammar(params);
-        EnumMap<keys, String> m = g.parser();
+        ManagerGrammar g = new ManagerGrammar(params);
+        EnumMap<BaseKeys, String> m = g.parser();
         alg = new Xor(m);
     }
 
@@ -37,7 +37,6 @@ public class Worker implements Executor {
     }
 
     public int setOutput(DataOutputStream stream) {
-
         if (isLast)
             output = stream;
         return 0;
@@ -57,7 +56,7 @@ public class Worker implements Executor {
         for (int i = 0 ; i < cnt ; i++) {
             Arrays.fill(buffer, (byte) 0);
             byte[] buf = Arrays.copyOfRange(buffer, i*)
-            alg.selectTask()
+            alg.selectTask();
 
         }
         if (isLast) {
