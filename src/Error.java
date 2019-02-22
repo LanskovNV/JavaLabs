@@ -1,5 +1,3 @@
-package Source;
-
 import java.io.*;
 
 public class Error {

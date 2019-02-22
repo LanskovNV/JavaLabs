@@ -1,5 +1,3 @@
-import Source.Error;
-
 import java.io.IOException;
 
 public class MainClass {

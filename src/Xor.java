@@ -1,5 +1,4 @@
 import java.util.EnumMap;
-import Source.BaseKeys;
 
 public class Xor {
     int keylen;
