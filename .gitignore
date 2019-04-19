@@ -1,6 +1,6 @@
 # compiled source 
-out/*
+out
 
 # intellij files
-.idea/*
+.idea
 JavaProj.iml

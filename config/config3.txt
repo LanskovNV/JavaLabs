@@ -1,0 +1,4 @@
+task: encode
+keyword: lovemaths
+buf_size: 4
+num_first: 0
