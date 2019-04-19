@@ -1,3 +1,0 @@
-type:encode
-keyword:Lermontov
-buffer_len:20

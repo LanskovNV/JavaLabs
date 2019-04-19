@@ -1,3 +1,0 @@
-type:decode
-keyword:Servantes
-buffer_len:30

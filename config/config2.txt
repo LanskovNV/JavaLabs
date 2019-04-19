@@ -1,0 +1,4 @@
+task: decode
+keyword: maths
+buf_size: 4
+num_first: 4
