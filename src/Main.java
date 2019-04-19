@@ -1,6 +1,5 @@
 public class Main {
 
-    //точка входа
     public static void main(String[] args) {
         /* log init */
         if (ErrorLog.Init() != 0) /* if the log wasn't created*/
