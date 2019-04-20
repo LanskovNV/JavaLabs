@@ -1,6 +1,3 @@
-/**
- * enum Executor Grammar
- */
 public enum ExecutorGrammar {
     task,                     //executor's task (encode/decode)
     keyword,                  //keyword to XOR with

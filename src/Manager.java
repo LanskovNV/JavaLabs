@@ -1,14 +1,14 @@
 import java.io.*;
 import java.util.*;
+
+
 public class Manager {
 
-    /**
-     * Opens input/output streams
-     * @param baseConfig
-     * @param baseConfig x EnumMap<BaseGrammar, String> baseConfig contains the name
-     *                    of manager's config file
-     * @return 0 if success, otherwise 1
-     */
+    private Executor executors[];
+    private int numExecutors;
+    private DataInputStream input;
+    private DataOutputStream output;
+
     public int openStreams(EnumMap<BaseGrammar, String> baseConfig) {
         try {
             String in = baseConfig.get(BaseGrammar.input); //get data from config
@@ -24,11 +24,6 @@ public class Manager {
         return 0;
     }
 
-    /**
-     * Creates pipeline
-     * @param baseConfig x config structure - the result of parsing manager's config file
-     * @return 0 if success, otherwise 1
-     */
     public int createPipeline(EnumMap<BaseGrammar, String> baseConfig) {
         ManagerParser mngParser = new ManagerParser();
         if(mngParser.parseConfig(baseConfig.get(BaseGrammar.managerConfig)) != 0)
@@ -150,10 +145,4 @@ public class Manager {
             ErrorLog.sendMessage("problem with streams closing");
         }
     }
-
-    /** private fields */
-    private Executor executors[];
-    private int numExecutors;
-    private DataInputStream input;
-    private DataOutputStream output;
 }
