@@ -43,40 +43,6 @@ public class XORer implements Executor {
         int ind = 0, i = 0;
         Arrays.fill(buf, (byte) 0);
 
-        if(adaptersMap.containsKey(provider)) {
-            Object undefAdapter = adaptersMap.get(provider);
-            APPROPRIATE_TYPES adaptersType = adaptersTypesMap.get(provider);
-            switch (adaptersType) {
-                case BYTE:
-                    InterfaceByteTransfer adapterByte = (InterfaceByteTransfer) undefAdapter;
-                    Byte b = adapterByte.getNextByte();
-                    while(ind < buf.length && b != null) {
-                        if(i >= posShift) {
-                            buf[ind] = b;
-                            ind++;
-                        }
-                        i++;
-                        b = adapterByte.getNextByte();
-                    }
-                    break;
-                case CHAR:
-                    InterfaceCharTransfer adapterChar = (InterfaceCharTransfer) undefAdapter;
-                    Character c = adapterChar.getNextChar();
-                    while(ind < buf.length && c != null) {
-                        if(i >= posShift) {
-                            buf[ind] = (byte)(char)c;
-                            ind++;
-                        }
-                        i++;
-                        c = adapterChar.getNextChar();
-                    }
-                    break;
-                default:
-            }
-        }
-        else
-            return 1;
-
         if(consumer != null) {
             buf = encoder.XOR(buf);
             writeBytes(ind);
