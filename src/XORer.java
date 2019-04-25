@@ -39,17 +39,17 @@ public class XORer implements Executor {
         return 0;
     }
 
-    public int put(Executor provider) {
-        int ind = 0, i = 0;
-        Arrays.fill(buf, (byte) 0);
+    public int put(byte[] buffer) {
+        int bufLen = buf.length;
+        buf = Arrays.copyOf(buffer, bufLen);
 
-        if(consumer != null) {
+        if(consumer == null) {
             buf = encoder.XOR(buf);
-            writeBytes(ind);
+            writeBytes(bufLen);
         }
         else {
-            byte[] res = Arrays.copyOf(buf, ind);
-            buf = new byte[ind];
+            byte[] res = Arrays.copyOf(buf, bufLen);
+            buf = new byte[bufLen];
             buf = res;
             processBlock();
         }
@@ -115,7 +115,7 @@ public class XORer implements Executor {
         buf = encoder.XOR(buf);
 
         if (consumer != null) {
-            isSuccess = consumer.put(this);
+            isSuccess = consumer.put(buf);
             if (isSuccess != 0)
                 return 1;
         }

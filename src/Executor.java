@@ -13,5 +13,6 @@ public interface Executor {
 
     int run();
 
-    int put(Executor provider);
+    int put(byte[] buffer);
+
 }

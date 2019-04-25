@@ -1,3 +1,3 @@
-cnt: 2
-config: config0.txt
-config: config1.txt
+ex_cnt: 2
+ex_config: config0.txt
+ex_config: config1.txt
