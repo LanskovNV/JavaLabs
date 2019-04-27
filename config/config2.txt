@@ -1,0 +1,4 @@
+task: encode
+keyword: kek
+buf_size: 5
+num_first: 0

@@ -11,10 +11,10 @@ public class Manager {
 
     public int openStreams(EnumMap<BaseGrammar, String> baseConfig) {
         try {
-            String in = baseConfig.get(BaseGrammar.input); //get data from config
+            String in = baseConfig.get(BaseGrammar.input);
             String out = baseConfig.get(BaseGrammar.output);
 
-            input = new DataInputStream(new FileInputStream(in)); //open streams
+            input = new DataInputStream(new FileInputStream(in));
             output = new DataOutputStream(new FileOutputStream(out));
         }
         catch (IOException e) {
