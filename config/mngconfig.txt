@@ -1,5 +1,5 @@
-ex_cnt: 4
-ex_config: config0.txt
-ex_config: config1.txt
-ex_config: config2.txt
-ex_config: config3.txt
+num_executors: 4
+exec_config: config0.txt
+exec_config: config1.txt
+exec_config: config2.txt
+exec_config: config3.txt

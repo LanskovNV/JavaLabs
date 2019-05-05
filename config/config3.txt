@@ -1,4 +1,4 @@
 task: decode
 keyword: kek
-buf_size: 5
+buf_size: 3
 num_first: 0

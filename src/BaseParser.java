@@ -10,20 +10,9 @@ public class BaseParser extends AbstractParser {
     }
 
     public BaseParser() {
-        setConfig();
-        setConfigSize();
-    }
-
-    void setConfigSize() {
         configSize = grammarMap.size();
-    }
-
-    protected void setDelimiter() {
-        delimiter = ":";
-    }
-
-    protected void setConfig() {
         config = new EnumMap<BaseGrammar, String>(BaseGrammar.class);
+        delimiter = ":";
     }
 
     protected boolean resolveLine(String[] configStr) {

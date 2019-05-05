@@ -59,7 +59,7 @@ public class Manager {
 
     private int setExecutors(List<String> exConfigs) {
         for(int i = 0; i < numExecutors; i++) {
-            executors[i] = new XORer();
+            executors[i] = new Xorer();
             executors[i].setConfig(exConfigs.get(i));
         }
         return 0;

@@ -2,38 +2,22 @@ import java.util.*;
 
 
 public class ManagerParser extends AbstractParser {
-
-    private int exCnt;
     private int numExecutors;
     private List<String> exConfigNames;
-
-    private String numDelimiter = " ";
 
     static final Map<String, ManagerGrammar> grammarMap = new TreeMap<>();
 
     static {
-        grammarMap.put("ex_cnt", ManagerGrammar.numExecutors);
-        grammarMap.put("ex_config", ManagerGrammar.exConfigFileName);
+        grammarMap.put("num_executors", ManagerGrammar.numExecutors);
+        grammarMap.put("exec_config", ManagerGrammar.exConfigFileName);
     }
 
     public ManagerParser() {
-        setConfig();
-        setConfigSize();
-        exConfigNames = new ArrayList<>();
-        exCnt = -1;
-        numExecutors = 0;
-    }
-
-    void setConfigSize() {
         configSize = 0;
-    }
-
-    protected void setConfig() {
-        config = new EnumMap<ManagerGrammar, String>(ManagerGrammar.class);
-    }
-
-    protected void setDelimiter() {
         delimiter = ":";
+        numExecutors = 0;
+        exConfigNames = new ArrayList<>();
+        config = new EnumMap<ManagerGrammar, String>(ManagerGrammar.class);
     }
 
     protected boolean resolveLine(String[] configStr) {

@@ -3,10 +3,10 @@ import javafx.beans.binding.ObjectBinding;
 import java.io.*;
 import java.util.*;
 
-public class XORer implements Executor {
+public class Xorer implements Executor {
 
     private ExecutorTask task;
-    private XOR encoder;
+    private Xor encoder;
     private byte[] buf;
     private int posShift = 0;
 
@@ -15,7 +15,7 @@ public class XORer implements Executor {
 
     private Executor consumer;
 
-    public XORer() {}
+    public Xorer() {}
 
     public int setConfig(String config) {
         ExecutorParser parser = new ExecutorParser();
@@ -44,7 +44,7 @@ public class XORer implements Executor {
         buf = Arrays.copyOf(buffer, bufLen);
 
         if(consumer == null) {
-            buf = encoder.XOR(buf);
+            buf = encoder.Xor(buf);
             writeBytes(bufLen);
         }
         else {
@@ -90,7 +90,7 @@ public class XORer implements Executor {
 
         this.task = parser.resolveTask();
         buf = new byte[blockSize];
-        encoder = new XOR(keyWord, blockSize);
+        encoder = new Xor(keyWord, blockSize);
         return 0;
     }
 
@@ -112,7 +112,7 @@ public class XORer implements Executor {
 
     private int processBlock() {
         int isSuccess;
-        buf = encoder.XOR(buf);
+        buf = encoder.Xor(buf);
 
         if (consumer != null) {
             isSuccess = consumer.put(buf);

@@ -17,20 +17,9 @@ public class ExecutorParser extends AbstractParser {
     }
 
     public ExecutorParser() {
-        setConfig();
-        setConfigSize();
-    }
-
-    void setConfigSize() {
-        configSize = grammarMap.size();
-    }
-
-    protected void setConfig() {
-        config = new EnumMap<ExecutorGrammar, String>(ExecutorGrammar.class);
-    }
-
-    protected void setDelimiter() {
         delimiter = ":";
+        configSize = grammarMap.size();
+        config = new EnumMap<ExecutorGrammar, String>(ExecutorGrammar.class);
     }
 
     protected boolean resolveLine(String[] configStr) {

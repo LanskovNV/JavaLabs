@@ -7,15 +7,9 @@ public abstract class AbstractParser {
     protected int configSize;
     protected String delimiter;
 
-    abstract void setConfigSize();
-
-    abstract void setConfig();
+    abstract boolean resolveLine(String[] configStr);
 
     public EnumMap getConfig() { return config; }
-
-    abstract void setDelimiter();
-
-    abstract boolean resolveLine(String[] configStr);
 
     public List<String> ReadCompleteFile (String filename) {
         File textFile = new File(filename);
@@ -38,7 +32,6 @@ public abstract class AbstractParser {
         if(configFile == null)
             return 1;
 
-        setDelimiter();
         for(String str: configFile) {
             String[] configStr = str.split(delimiter, 2);
             if (!resolveLine(configStr)) {
