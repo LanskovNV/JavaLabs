@@ -1,5 +1,5 @@
 ex_cnt: 4
-ex_class: XORer
+ex_class: Xorer
 ex_config: config0.txt
 ex_consumers: 1 
 ex_class: ROTer
@@ -8,5 +8,5 @@ ex_consumers: 2
 ex_class: ROTer
 ex_config: params3.txt
 ex_consumers: 3
-ex_class: XORer
+ex_class: Xorer
 ex_config: config0.txt

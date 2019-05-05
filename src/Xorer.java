@@ -1,9 +1,9 @@
 import java.io.*;
 import java.util.*;
 
-public class XORer implements Executor {
+public class Xorer implements Executor {
 
-    public XORer() {
+    public Xorer() {
         consumers = new ArrayList<>();
         adaptersMap = new HashMap<>();
         adaptersTypesMap = new HashMap<>();
@@ -11,7 +11,20 @@ public class XORer implements Executor {
         operatedTypes[0] = APPROPRIATE_TYPES.BYTE;
         operatedTypes[1] = APPROPRIATE_TYPES.CHAR;
     }
-    
+
+    public byte[] XOR(byte[] buf) {
+        int cnt = 0, keyWordLen = keyword.length();
+
+        for (int i = 0; i < buf.length; i++) {
+            buf[i] = (byte) (buf[i] ^ keyword.charAt(cnt));
+            cnt++;
+            if (cnt == keyWordLen)
+                cnt = 0;
+        }
+
+        return buf;
+    }
+
     public int setConfig(String config) {
         ExecutorParser parser = new ExecutorParser();
         if (parser.parseConfig(config) != 0)
@@ -96,7 +109,7 @@ public class XORer implements Executor {
             return 1;
 
         if(consumers.size() == 0) {
-            buf = encoder.XOR(buf);
+            buf = XOR(buf);
             writeBytes(ind);
         }
         else {
@@ -161,11 +174,9 @@ public class XORer implements Executor {
         if(blockSize <= 0 || posShift < 0) {
             return 1;
         }
-        String keyWord = exConfig.get(ExecutorGrammar.keyword);
-
+        keyword = exConfig.get(ExecutorGrammar.keyword);
         this.task = parser.resolveTask();
         buf = new byte[blockSize];
-        encoder = new XOR(keyWord, blockSize);
         return 0;
     }
 
@@ -186,13 +197,11 @@ public class XORer implements Executor {
     }
 
     private int processBlock() {
-        int isSuccess;
-        buf = encoder.XOR(buf);
+        buf = XOR(buf);
         if (consumers != null) {
             for(Executor consumer: consumers) {
                 if(setConnection(consumer) == 0) {
-                    isSuccess = consumer.put(this);
-                    if (isSuccess != 0)
+                    if (consumer.put(this) != 0)
                         return 1;
                 }
             }
@@ -228,10 +237,10 @@ public class XORer implements Executor {
     }
 
     private ExecutorTask task;
-    private XOR encoder;
     private byte[] buf;
     private int posShift = 0;
 
+    private String keyword;
     private DataInputStream  input;
     private DataOutputStream output;
 
