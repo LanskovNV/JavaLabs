@@ -10,19 +10,8 @@ public class MainParser extends AbstractParser {
     }
 
     public MainParser() {
-        setConfig();
-        setConfigSize();
-    }
-
-    void setConfigSize() {
-        configSize = grammarMap.size();
-    }
-
-    protected void setDelimiter() {
         delimiter = ":";
-    }
-
-    protected void setConfig() {
+        configSize = grammarMap.size();
         config = new EnumMap<MainGrammar, String>(MainGrammar.class);
     }
 

@@ -3,6 +3,20 @@ import java.util.*;
 
 public class Xorer implements Executor {
 
+    private ExecutorTask task;
+    private byte[] buf;
+    private int posShift = 0;
+
+    private String keyword;
+    private DataInputStream  input;
+    private DataOutputStream output;
+
+    private APPROPRIATE_TYPES[] operatedTypes;
+
+    private ArrayList<Executor>                  consumers;
+    private HashMap<Executor, Object>            adaptersMap;
+    private HashMap<Executor, APPROPRIATE_TYPES> adaptersTypesMap;
+
     public Xorer() {
         consumers = new ArrayList<>();
         adaptersMap = new HashMap<>();
@@ -235,18 +249,4 @@ public class Xorer implements Executor {
                 return 1;
         }
     }
-
-    private ExecutorTask task;
-    private byte[] buf;
-    private int posShift = 0;
-
-    private String keyword;
-    private DataInputStream  input;
-    private DataOutputStream output;
-
-    private APPROPRIATE_TYPES[] operatedTypes;
-
-    private ArrayList<Executor>                  consumers;
-    private HashMap<Executor, Object>            adaptersMap;
-    private HashMap<Executor, APPROPRIATE_TYPES> adaptersTypesMap;
 }

@@ -1,6 +1,10 @@
 import java.io.*;
 import java.util.*;
 public class Manager {
+    private Executor executors[];
+    private int numExecutors;
+    private DataInputStream input;
+    private DataOutputStream output;
 
     public int openStreams(EnumMap<MainGrammar, String> baseConfig) {
         try {
@@ -110,9 +114,4 @@ public class Manager {
             ErrorLog.sendMessage("problem with streams closing");
         }
     }
-
-    private Executor executors[];
-    private int numExecutors;
-    private DataInputStream input;
-    private DataOutputStream output;
 }

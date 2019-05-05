@@ -9,25 +9,39 @@ public class ManagerParser extends AbstractParser {
         grammarMap.put("ex_config", ManagerGrammar.exConfigFileName);
         grammarMap.put("ex_consumers", ManagerGrammar.exConsumers);
     }
+
+    private int exCnt;
+    private int numExecutors;
+    private List<String> exConfigNames;
+    private int[][] exConsumers;
+    private List<String> exClasses;
+
+    private String numDelimiter = " ";
+
     public ManagerParser() {
-        setConfig();
-        setConfigSize();
+        delimiter = ":";
+        configSize = 0;
+        config = new EnumMap<ManagerGrammar, String>(ManagerGrammar.class);
         exConfigNames = new ArrayList<>();
         exClasses = new ArrayList<>();
         exCnt = -1;
         numExecutors = 0;
     }
 
-    void setConfigSize() {
-        configSize = 0;
+    public List<String> getExConfigFilenames() {
+        return exConfigNames;
     }
 
-    protected void setConfig() {
-        config = new EnumMap<ManagerGrammar, String>(ManagerGrammar.class);
+    public List<String> getExClasses() {
+        return exClasses;
     }
 
-    protected void setDelimiter() {
-        delimiter = ":";
+    public int[][] getExConsumers() {
+        return exConsumers;
+    }
+
+    public int getNumExecutors() {
+        return numExecutors;
     }
 
     protected boolean resolveLine(String[] configStr) {
@@ -63,27 +77,4 @@ public class ManagerParser extends AbstractParser {
             return false;
         }
     }
-
-    public List<String> getExConfigFilenames() {
-        return exConfigNames;
-    }
-
-    public List<String> getExClasses() {
-        return exClasses;
-    }
-
-    public int[][] getExConsumers() {
-        return exConsumers;
-    }
-
-    public int getNumExecutors() {
-        return numExecutors;
-    }
-    private int exCnt;
-    private int numExecutors;
-    private List<String> exConfigNames;
-    private int[][] exConsumers;
-    private List<String> exClasses;
-
-    private String numDelimiter = " ";
 }

@@ -2,6 +2,12 @@ import java.io.*;
 
 public class ErrorLog {
 
+    private static File log;
+    private static String fileLogName = "log.txt";
+
+    private static FileWriter logWriter;
+    private static BufferedWriter logBufWriter;
+
     public static int Init() {
         log = new File(fileLogName);
 
@@ -54,13 +60,5 @@ public class ErrorLog {
         }
     }
 
-    public static String getLogName() {
-        return fileLogName;
-    }
 
-    private static FileWriter logWriter;
-    private static BufferedWriter logBufWriter;
-
-    private static File log;
-    private static String fileLogName = "log.txt";
 }
