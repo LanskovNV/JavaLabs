@@ -1,4 +1,0 @@
-task: decode
-keyword: kek
-buf_size: 3
-num_first: 0

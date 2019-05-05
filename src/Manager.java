@@ -44,14 +44,14 @@ public class Manager {
             return 1;
         if(setConsumers() != 0)
             return 1;
-        executors[0].setInput(input); //set input to the first executor in pipeline
+        executors[0].setInput(input);
         return 0;
     }
 
     private int setNumExecutors(ManagerParser mngParser) {
         numExecutors = mngParser.getNumExecutors();
         if(numExecutors < 1) {
-            ErrorLog.sendMessage("incorrect number of executors in config file");
+            ErrorLog.sendMessage("incorrect number of executors in config");
             return 1;
         }
         return 0;
@@ -79,7 +79,7 @@ public class Manager {
 
     public void run() {
         if(executors[0].run() != 0) {
-            ErrorLog.sendMessage("the pipeline work was incorrect");
+            ErrorLog.sendMessage("error in pipeline work");
         }
     }
 
@@ -91,7 +91,7 @@ public class Manager {
                 output.close();
         }
         catch (IOException e) {
-            ErrorLog.sendMessage("problem with streams closing");
+            ErrorLog.sendMessage("error in closing streams");
         }
     }
 }

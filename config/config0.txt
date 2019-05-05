@@ -1,4 +1,2 @@
-task: encode
 keyword: lermontov
-buf_size: 3
-num_first: 0
+buf_size: 5

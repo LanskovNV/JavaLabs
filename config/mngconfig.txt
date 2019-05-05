@@ -1,5 +1,3 @@
-num_executors: 4
+num_executors: 2
 exec_config: config0.txt
 exec_config: config1.txt
-exec_config: config2.txt
-exec_config: config3.txt

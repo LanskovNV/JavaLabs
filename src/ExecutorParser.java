@@ -4,16 +4,8 @@ public class ExecutorParser extends AbstractParser {
 
     static final Map<String, ExecutorGrammar> grammarMap = new TreeMap<String, ExecutorGrammar>();
     static {
-        grammarMap.put("task", ExecutorGrammar.task);
         grammarMap.put("keyword", ExecutorGrammar.keyword);
         grammarMap.put("buf_size", ExecutorGrammar.bufsize);
-        grammarMap.put("num_first", ExecutorGrammar.firstSymbolNum);
-    }
-
-    static final Map<String, ExecutorTask> taskMap = new TreeMap<String, ExecutorTask>();
-    static {
-        taskMap.put("encode", ExecutorTask.encode);
-        taskMap.put("decode", ExecutorTask.decode);
     }
 
     public ExecutorParser() {
@@ -31,9 +23,5 @@ public class ExecutorParser extends AbstractParser {
         else {
             return false;
         }
-    }
-
-    public ExecutorTask resolveTask() {
-        return taskMap.get(config.get(ExecutorGrammar.task));
     }
 }

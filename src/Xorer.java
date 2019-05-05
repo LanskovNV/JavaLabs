@@ -1,14 +1,9 @@
-import javafx.beans.binding.ObjectBinding;
-
 import java.io.*;
 import java.util.*;
 
 public class Xorer implements Executor {
-
-    private ExecutorTask task;
     private Xor encoder;
     private byte[] buf;
-    private int posShift = 0;
 
     private DataInputStream  input;
     private DataOutputStream output;
@@ -40,8 +35,8 @@ public class Xorer implements Executor {
     }
 
     public int put(byte[] buffer) {
+        buf = Arrays.copyOf(buffer, buffer.length);
         int bufLen = buf.length;
-        buf = Arrays.copyOf(buffer, bufLen);
 
         if(consumer == null) {
             buf = encoder.Xor(buf);
@@ -82,15 +77,13 @@ public class Xorer implements Executor {
     private int setXORer(ExecutorParser parser) {
         EnumMap<ExecutorGrammar, String> exConfig = parser.getConfig();
         int blockSize = Integer.parseInt(exConfig.get(ExecutorGrammar.bufsize));
-        posShift = Integer.parseInt(exConfig.get(ExecutorGrammar.firstSymbolNum));
-        if(blockSize <= 0 || posShift < 0) {
+        if(blockSize <= 0) {
             return 1;
         }
         String keyWord = exConfig.get(ExecutorGrammar.keyword);
 
-        this.task = parser.resolveTask();
         buf = new byte[blockSize];
-        encoder = new Xor(keyWord, blockSize);
+        encoder = new Xor(keyWord);
         return 0;
     }
 
@@ -98,6 +91,7 @@ public class Xorer implements Executor {
         try {
             return input.read(buf);
         } catch (Exception e) {
+            ErrorLog.sendMessage(e.toString());
             return -1;
         }
     }
@@ -106,21 +100,17 @@ public class Xorer implements Executor {
         try {
             output.write(buf, 0, len);
         } catch (Exception e) {
+            ErrorLog.sendMessage(e.toString());
             return;
         }
     }
 
     private int processBlock() {
-        int isSuccess;
         buf = encoder.Xor(buf);
 
-        if (consumer != null) {
-            isSuccess = consumer.put(buf);
-            if (isSuccess != 0)
-                return 1;
-        }
-        else
+        if (consumer == null || consumer.put(buf) != 0)
             return 1;
+
         return 0;
     }
 }

@@ -23,7 +23,9 @@ public abstract class AbstractParser {
                 text.add(str);
                 str = bufReader.readLine();
             }
-        } catch (IOException e) { }
+        } catch (IOException e) {
+            ErrorLog.sendMessage("Error in ReadCompleteFile func");
+        }
         return text;
     }
 
