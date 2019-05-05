@@ -2,10 +2,6 @@ import java.io.*;
 
 public class ErrorLog {
 
-    /**
-     * Inits log
-     * @return 0 if success, otherwise 1
-     */
     public static int Init() {
         log = new File(fileLogName);
 
@@ -22,10 +18,6 @@ public class ErrorLog {
         return 0;
     }
 
-    /**
-     * Opens output streams
-     * @return 0 if success, otherwise 1
-     */
     private static int createLogWriter() {
         try {
             logWriter = new FileWriter(log);
@@ -38,10 +30,6 @@ public class ErrorLog {
         }
     }
 
-    /**
-     * Prints message to log
-     * @param message x message which needs to be sent to the log file
-     */
     public static void sendMessage(String message) {
         try {
             logBufWriter.write("Err: " + message + "\n");
@@ -52,9 +40,6 @@ public class ErrorLog {
         }
     }
 
-    /**
-     * Closes log file
-     */
     public static void close() {
         try {
             logBufWriter.close();
@@ -69,15 +54,10 @@ public class ErrorLog {
         }
     }
 
-    /**
-     * Gets the log's name
-     * @return String x log name
-     */
     public static String getLogName() {
         return fileLogName;
     }
 
-    /** private fields */
     private static FileWriter logWriter;
     private static BufferedWriter logBufWriter;
 
