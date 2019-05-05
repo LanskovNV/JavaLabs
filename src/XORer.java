@@ -1,13 +1,8 @@
-import javafx.beans.binding.ObjectBinding;
-
 import java.io.*;
 import java.util.*;
 
 public class XORer implements Executor {
 
-    /**
-     * Creates object
-     */
     public XORer() {
         consumers = new ArrayList<>();
         adaptersMap = new HashMap<>();
@@ -16,8 +11,7 @@ public class XORer implements Executor {
         operatedTypes[0] = APPROPRIATE_TYPES.BYTE;
         operatedTypes[1] = APPROPRIATE_TYPES.CHAR;
     }
-
-    /// BEGIN Executor interface
+    
     public int setConfig(String config) {
         ExecutorParser parser = new ExecutorParser();
         if (parser.parseConfig(config) != 0)
@@ -136,9 +130,6 @@ public class XORer implements Executor {
         }
         return 0;
     }
-    /// END Executor interface
-
-    /// BEGIN ByteTransferAdapter
     class ByteTransferAdapter implements InterfaceByteTransfer {
         private int pos = 0;
 
@@ -151,9 +142,6 @@ public class XORer implements Executor {
             }
         }
     }
-    /// END ByteTransferAdapter
-
-    /// BEGIN CharTransferAdapter
     class CharTransferAdapter implements InterfaceCharTransfer {
         private int pos = 0;
 
@@ -166,18 +154,7 @@ public class XORer implements Executor {
             }
         }
     }
-    /// END CharTransferAdapter
-
-    /// BEGIN inner methods
-
-
-    /**
-     * The function to initialise class's private fields
-     * @param parser - configuration parser of XORer class
-     * @return 0 if success, otherwise 1
-     */
     private int setXORer(ExecutorParser parser) {
-        /* get configuration */
         EnumMap<ExecutorGrammar, String> exConfig = parser.getConfig();
         int blockSize = Integer.parseInt(exConfig.get(ExecutorGrammar.bufsize));
         posShift = Integer.parseInt(exConfig.get(ExecutorGrammar.firstSymbolNum));
@@ -186,16 +163,12 @@ public class XORer implements Executor {
         }
         String keyWord = exConfig.get(ExecutorGrammar.keyword);
 
-        /* initialisation of private fields */
         this.task = parser.resolveTask();
         buf = new byte[blockSize];
         encoder = new XOR(keyWord, blockSize);
         return 0;
     }
 
-    /**
-     * @return x number of bytes which were read
-     */
     private int readBytes() {
         try {
             return input.read(buf);
@@ -204,9 +177,6 @@ public class XORer implements Executor {
         }
     }
 
-    /**
-     * Writes bytes in the output stream
-     */
     private void writeBytes(int len) {
         try {
             output.write(buf, 0, len);
@@ -215,10 +185,6 @@ public class XORer implements Executor {
         }
     }
 
-    /**
-     * Function XORes the block & send worker to all consumers
-     * @return 0 if success, otherwise 1
-     */
     private int processBlock() {
         int isSuccess;
         buf = encoder.XOR(buf);
@@ -236,11 +202,6 @@ public class XORer implements Executor {
         return 0;
     }
 
-    /**
-     * Search for compatible types
-     * @param consumersTypes x APPROPRIATE_TYPES array of consumer's types
-     * @return APPROPRIATE_TYPES x compatible type
-     */
     private APPROPRIATE_TYPES getAppropriateType(APPROPRIATE_TYPES consumersTypes[]) {
         for(int i = 0; i < operatedTypes.length; i++) {
             for(int j = 0; j < consumersTypes.length; j++) {
@@ -252,11 +213,6 @@ public class XORer implements Executor {
         return null;
     }
 
-    /**
-     * Sets connection between consumer and provider
-     * @param consumer x the consumer
-     * @return 0 if success, otherwise 1
-     */
     private int setConnection(Executor consumer) {
         APPROPRIATE_TYPES consumersTypes[] = consumer.getConsumedTypes();
         switch(getAppropriateType(consumersTypes)) {
@@ -271,9 +227,6 @@ public class XORer implements Executor {
         }
     }
 
-    /// END inner methods
-
-    /** private fields */
     private ExecutorTask task;
     private XOR encoder;
     private byte[] buf;

@@ -2,19 +2,12 @@ import java.io.*;
 import java.util.*;
 public class Manager {
 
-    /**
-     * Opens input/output streams
-     * @param baseConfig
-     * @param baseConfig x EnumMap<BaseGrammar, String> baseConfig contains the name
-     *                    of manager's config file
-     * @return 0 if success, otherwise 1
-     */
-    public int openStreams(EnumMap<BaseGrammar, String> baseConfig) {
+    public int openStreams(EnumMap<MainGrammar, String> baseConfig) {
         try {
-            String in = baseConfig.get(BaseGrammar.input); //get data from config
-            String out = baseConfig.get(BaseGrammar.output);
+            String in = baseConfig.get(MainGrammar.input);
+            String out = baseConfig.get(MainGrammar.output);
 
-            input = new DataInputStream(new FileInputStream(in)); //open streams
+            input = new DataInputStream(new FileInputStream(in));
             output = new DataOutputStream(new FileOutputStream(out));
         }
         catch (IOException e) {
@@ -24,14 +17,9 @@ public class Manager {
         return 0;
     }
 
-    /**
-     * Creates pipeline
-     * @param baseConfig x config structure - the result of parsing manager's config file
-     * @return 0 if success, otherwise 1
-     */
-    public int createPipeline(EnumMap<BaseGrammar, String> baseConfig) {
+    public int createPipeline(EnumMap<MainGrammar, String> baseConfig) {
         ManagerParser mngParser = new ManagerParser();
-        if(mngParser.parseConfig(baseConfig.get(BaseGrammar.managerConfig)) != 0)
+        if(mngParser.parseConfig(baseConfig.get(MainGrammar.managerConfig)) != 0)
             return 1;
 
         if(setNumExecutors(mngParser) != 0)
@@ -51,15 +39,10 @@ public class Manager {
             return 1;
         if(setConsumers(consumers) != 0)
             return 1;
-        executors[0].setInput(input); //set input to the first executor in pipeline
+        executors[0].setInput(input);
         return 0;
     }
 
-    /**
-     * Sets the number of executors which were read & check if the data is correct
-     * @param mngParser x the manager's interpreter
-     * @return 0 if success, otherwise 1
-     */
     private int setNumExecutors(ManagerParser mngParser) {
         numExecutors = mngParser.getNumExecutors();
         if(numExecutors < 1) {
@@ -69,12 +52,6 @@ public class Manager {
         return 0;
     }
 
-    /**
-     * Sets executors in the pipeline
-     * @param exConfigs x list of executors's config files
-     * @param exClasses x list of executor's classes
-     * @return 0 if success, otherwise 1
-     */
     private int setExecutors(List<String> exConfigs, List<String> exClasses) {
         for(int i = 0; i < numExecutors; i++) {
             try {
@@ -89,16 +66,10 @@ public class Manager {
         return 0;
     }
 
-    /**
-     * Sets consumers
-     * @param consumers x int[][] which handles the oriented graph which describing the
-     *                  relationships between executors
-     * @return 0 if success, otherwise 1
-     */
     private int setConsumers(int[][] consumers) {
         boolean gotLast = false;
         for(int i = 0; i < consumers.length; i++) {
-            if(consumers[i] == null) { //if null - this executor is the last one in the pipeline
+            if(consumers[i] == null) {
                 if(gotLast == true) {
                     ErrorLog.sendMessage("there's more that one last worker");
                     return 1;
@@ -112,33 +83,22 @@ public class Manager {
                         ErrorLog.sendMessage("incorrect executors sequence");
                         return 1;
                     }
-                    executors[i].setConsumer(executors[consumers[i][j]]); //set consumers
+                    executors[i].setConsumer(executors[consumers[i][j]]);
                 }
         }
         return 0;
     }
 
-    /**
-     * Gives output stream to the last executor
-     * @param i x sets output to the executor which has i number in the executors massive
-     *          (not in the pipeline!)
-     */
     private void setOutput(int i) {
         executors[i].setOutput(output);
     }
 
-    /**
-     * Runs the pipeline
-     */
     public void run() {
         if(executors[0].run() != 0) {
             ErrorLog.sendMessage("the pipeline work was incorrect");
         }
     }
 
-    /**
-     * Closes all streams which were opened
-     */
     public void closeStreams() {
         try {
             if (input != null)
@@ -151,7 +111,6 @@ public class Manager {
         }
     }
 
-    /** private fields */
     private Executor executors[];
     private int numExecutors;
     private DataInputStream input;
