@@ -2,5 +2,5 @@
 out/*
 
 # intellij files
-.idea/*
+.idea/
 JavaProj.iml

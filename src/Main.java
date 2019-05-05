@@ -6,7 +6,7 @@ public class Main {
 
         if(args.length > 0)
         {
-            BaseParser interpreter = new BaseParser();
+            MainParser interpreter = new MainParser();
             if(interpreter.parseConfig(args[0]) != 0)
                 return;
 

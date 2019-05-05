@@ -9,10 +9,10 @@ public class Manager {
     private DataInputStream input;
     private DataOutputStream output;
 
-    public int openStreams(EnumMap<BaseGrammar, String> baseConfig) {
+    public int openStreams(EnumMap<MainGrammar, String> baseConfig) {
         try {
-            String in = baseConfig.get(BaseGrammar.input);
-            String out = baseConfig.get(BaseGrammar.output);
+            String in = baseConfig.get(MainGrammar.input);
+            String out = baseConfig.get(MainGrammar.output);
 
             input = new DataInputStream(new FileInputStream(in));
             output = new DataOutputStream(new FileOutputStream(out));
@@ -24,9 +24,9 @@ public class Manager {
         return 0;
     }
 
-    public int createPipeline(EnumMap<BaseGrammar, String> baseConfig) {
+    public int createPipeline(EnumMap<MainGrammar, String> baseConfig) {
         ManagerParser mngParser = new ManagerParser();
-        if(mngParser.parseConfig(baseConfig.get(BaseGrammar.managerConfig)) != 0)
+        if(mngParser.parseConfig(baseConfig.get(MainGrammar.managerConfig)) != 0)
             return 1;
 
         if(setNumExecutors(mngParser) != 0)

@@ -26,7 +26,7 @@ public class ManagerParser extends AbstractParser {
             String res = configStr[1].trim();
             switch(token) {
                 case exConfigFileName:
-                    exConfigNames.add(res); //if the name of consumer's config file - add to the list
+                    exConfigNames.add(res);
                     break;
                 case numExecutors:
                     numExecutors = Integer.parseInt(res);

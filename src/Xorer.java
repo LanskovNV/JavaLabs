@@ -2,8 +2,8 @@ import java.io.*;
 import java.util.*;
 
 public class Xorer implements Executor {
-    private Xor encoder;
     private byte[] buf;
+    private static String keyword;
 
     private DataInputStream  input;
     private DataOutputStream output;
@@ -11,6 +11,19 @@ public class Xorer implements Executor {
     private Executor consumer;
 
     public Xorer() {}
+
+    public byte[] Xor(byte[] buf) {
+        int cnt = 0, keyWordLen = keyword.length();
+        int bufsize = buf.length;
+
+        for (int i = 0; i < bufsize; i++) {
+            buf[i] = (byte) (buf[i] ^ keyword.charAt(cnt++));
+            if (cnt == keyWordLen)
+                cnt = 0;
+        }
+
+        return buf;
+    }
 
     public int setConfig(String config) {
         ExecutorParser parser = new ExecutorParser();
@@ -39,7 +52,7 @@ public class Xorer implements Executor {
         int bufLen = buf.length;
 
         if(consumer == null) {
-            buf = encoder.Xor(buf);
+            buf = Xor(buf);
             writeBytes(bufLen);
         }
         else {
@@ -80,10 +93,8 @@ public class Xorer implements Executor {
         if(blockSize <= 0) {
             return 1;
         }
-        String keyWord = exConfig.get(ExecutorGrammar.keyword);
-
+        keyword = exConfig.get(ExecutorGrammar.keyword);
         buf = new byte[blockSize];
-        encoder = new Xor(keyWord);
         return 0;
     }
 
@@ -106,7 +117,7 @@ public class Xorer implements Executor {
     }
 
     private int processBlock() {
-        buf = encoder.Xor(buf);
+        buf = Xor(buf);
 
         if (consumer == null || consumer.put(buf) != 0)
             return 1;
