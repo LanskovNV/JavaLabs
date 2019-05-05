@@ -7,9 +7,9 @@ public abstract class AbstractParser {
     protected int configSize;
     protected String delimiter;
 
-    public EnumMap getConfig() { return config; }
-
     abstract boolean resolveLine(String[] configStr);
+
+    public EnumMap getConfig() { return config; }
 
     public List<String> ReadCompleteFile (String filename) {
         File textFile = new File(filename);
@@ -23,7 +23,9 @@ public abstract class AbstractParser {
                 text.add(str);
                 str = bufReader.readLine();
             }
-        } catch (IOException e) { }
+        } catch (IOException e) {
+            ErrorLog.sendMessage("Error in ReadCompleteFile func");
+        }
         return text;
     }
 

@@ -3,7 +3,6 @@ import java.util.*;
 
 public class Xorer implements Executor {
 
-    private ExecutorTask task;
     private byte[] buf;
     private int posShift = 0;
 
@@ -189,7 +188,6 @@ public class Xorer implements Executor {
             return 1;
         }
         keyword = exConfig.get(ExecutorGrammar.keyword);
-        this.task = parser.resolveTask();
         buf = new byte[blockSize];
         return 0;
     }
