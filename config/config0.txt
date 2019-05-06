@@ -1,4 +1,4 @@
 task: encode
-keyword: lovemaths
+keyword: lermontov
 buf_size: 4
 num_first: 0
