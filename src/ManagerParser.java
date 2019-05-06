@@ -12,11 +12,10 @@ public class ManagerParser extends AbstractParser {
 
     private int exCnt;
     private int numExecutors;
+    private String consDelimiter = " ";
     private List<String> exConfigNames;
     private int[][] exConsumers;
     private List<String> exClasses;
-
-    private String numDelimiter = " ";
 
     public ManagerParser() {
         delimiter = ":";
@@ -54,10 +53,10 @@ public class ManagerParser extends AbstractParser {
                     break;
                 case exConsumers:
                     if(numExecutors == 0 || exCnt == numExecutors) {
-                        ErrorLog.sendMessage("the number of executors in undefined");
+                        ErrorLog.sendMessage("incorrect number of executors");
                         return false;
                     }
-                    String[] exNumbers = res.split(numDelimiter);
+                    String[] exNumbers = res.split(consDelimiter);
                     exConsumers[exCnt] = new int[exNumbers.length];
                     for(int i = 0; i < exNumbers.length; i++)
                         exConsumers[exCnt][i] = Integer.parseInt(exNumbers[i]);

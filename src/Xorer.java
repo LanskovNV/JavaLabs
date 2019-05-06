@@ -27,14 +27,13 @@ public class Xorer implements Executor {
 
     public byte[] XOR(byte[] buf) {
         int cnt = 0, keyWordLen = keyword.length();
-
-        for (int i = 0; i < buf.length; i++) {
+        int buflen = buf.length;
+        for (int i = 0; i < buflen; i++) {
             buf[i] = (byte) (buf[i] ^ keyword.charAt(cnt));
             cnt++;
             if (cnt == keyWordLen)
                 cnt = 0;
         }
-
         return buf;
     }
 
