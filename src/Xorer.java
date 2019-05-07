@@ -16,6 +16,8 @@ public class Xorer implements Executor {
     private HashMap<Executor, Object>            adaptersMap;
     private HashMap<Executor, APPROPRIATE_TYPES> adaptersTypesMap;
 
+    private int pos = 0;
+
     public Xorer() {
         consumers = new ArrayList<>();
         adaptersMap = new HashMap<>();
@@ -82,6 +84,34 @@ public class Xorer implements Executor {
         }
     }
 
+    private int setConnection(Executor consumer) {
+        APPROPRIATE_TYPES consumersTypes[] = consumer.getConsumedTypes();
+        switch(getAppropriateType(consumersTypes)) {
+            case BYTE:
+                consumer.setAdapter(this, new ByteTransferAdapter(), APPROPRIATE_TYPES.BYTE);
+                return 0;
+            case CHAR:
+                consumer.setAdapter(this, new CharTransferAdapter(), APPROPRIATE_TYPES.CHAR);
+                return 0;
+            default:
+                return 1;
+        }
+    }
+
+    private int processBlock() {
+        buf = XOR(buf);
+        if (consumers != null) {
+            for(Executor consumer: consumers) {
+                this.pos = 0;
+                if (consumer.put(this) != 0)
+                    return 1;
+            }
+        }
+        else
+            return 1;
+        return 0;
+    }
+
     public int put(Executor provider) {
         int ind = 0, i = 0;
         Arrays.fill(buf, (byte) 0);
@@ -94,7 +124,7 @@ public class Xorer implements Executor {
                     InterfaceByteTransfer adapterByte = (InterfaceByteTransfer) undefAdapter;
                     Byte b = adapterByte.getNextByte();
                     while(ind < buf.length && b != null) {
-                        if(i >= posShift) {
+                        if (i >= posShift) {
                             buf[ind] = b;
                             ind++;
                         }
@@ -120,6 +150,11 @@ public class Xorer implements Executor {
         else
             return 1;
 
+        giveBuffNext(ind);
+        return 0;
+    }
+
+    private void giveBuffNext(int ind) {
         if(consumers.size() == 0) {
             buf = XOR(buf);
             writeBytes(ind);
@@ -130,8 +165,6 @@ public class Xorer implements Executor {
             buf = res;
             processBlock();
         }
-
-        return 0;
     }
 
     public int run() {
@@ -155,21 +188,16 @@ public class Xorer implements Executor {
         }
         return 0;
     }
-    class ByteTransferAdapter implements InterfaceByteTransfer {
-        private int pos = 0;
 
+    class ByteTransferAdapter implements InterfaceByteTransfer {
         public Byte getNextByte() {
             if (pos >= buf.length) {
                 return null;
             }
-            else {
-                return buf[pos++];
-            }
+            return buf[pos++];
         }
     }
     class CharTransferAdapter implements InterfaceCharTransfer {
-        private int pos = 0;
-
         public Character getNextChar() {
             if (pos >= buf.length) {
                 return null;
@@ -179,6 +207,7 @@ public class Xorer implements Executor {
             }
         }
     }
+
     private int setXORer(ExecutorParser parser) {
         EnumMap<ExecutorGrammar, String> exConfig = parser.getConfig();
         int blockSize = Integer.parseInt(exConfig.get(ExecutorGrammar.bufsize));
@@ -207,21 +236,6 @@ public class Xorer implements Executor {
         }
     }
 
-    private int processBlock() {
-        buf = XOR(buf);
-        if (consumers != null) {
-            for(Executor consumer: consumers) {
-                if(setConnection(consumer) == 0) {
-                    if (consumer.put(this) != 0)
-                        return 1;
-                }
-            }
-        }
-        else
-            return 1;
-        return 0;
-    }
-
     private APPROPRIATE_TYPES getAppropriateType(APPROPRIATE_TYPES consumersTypes[]) {
         for(int i = 0; i < operatedTypes.length; i++) {
             for(int j = 0; j < consumersTypes.length; j++) {
@@ -231,19 +245,5 @@ public class Xorer implements Executor {
             }
         }
         return null;
-    }
-
-    private int setConnection(Executor consumer) {
-        APPROPRIATE_TYPES consumersTypes[] = consumer.getConsumedTypes();
-        switch(getAppropriateType(consumersTypes)) {
-            case BYTE:
-                consumer.setAdapter(this, new ByteTransferAdapter(), APPROPRIATE_TYPES.BYTE);
-                return 0;
-            case CHAR:
-                consumer.setAdapter(this, new CharTransferAdapter(), APPROPRIATE_TYPES.CHAR);
-                return 0;
-            default:
-                return 1;
-        }
     }
 }

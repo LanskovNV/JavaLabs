@@ -7,6 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="ROTer" level="project" />
+    <orderEntry type="library" name="Roter" level="project" />
+    <orderEntry type="library" name="Interfaces" level="project" />
   </component>
 </module>
