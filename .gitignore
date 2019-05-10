@@ -1,6 +1,3 @@
-# compiled source 
+#ignored dirs
 out/*
-
-# intellij files
 .idea/*
-JavaProj.iml
