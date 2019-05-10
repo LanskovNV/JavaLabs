@@ -1,4 +1,4 @@
-task: encode
+task: decode
 keyword: lermontov
 buf_size: 4
 num_first: 0

@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="302a4170-bc2c-49d2-a3b3-f5dc5832e02e" name="Default Changelist" comment="Updated&#10;&#10; - added interfaces as jar&#10; - fixed problem with reset adapter for all blocks">
+    <list default="true" id="302a4170-bc2c-49d2-a3b3-f5dc5832e02e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaProj.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaProj.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/Log.log" beforeDir="false" afterPath="$PROJECT_DIR$/config/Log.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProj/Crypt.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProj/Error.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProj/Grammar.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProj/MainClass.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProj/keys.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -80,8 +72,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="13" selection-start-column="13" selection-end-column="13" />
+            <state relative-caret-position="80">
+              <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -178,12 +170,20 @@
       <option name="presentableId" value="Default" />
       <updated>1557259944572</updated>
       <workItem from="1557259956366" duration="922000" />
-      <workItem from="1557520167852" duration="287000" />
+      <workItem from="1557520167852" duration="393000" />
     </task>
+    <task id="LOCAL-00001" summary="Updated">
+      <created>1557520469584</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1557520469584</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2583000" />
+    <option name="totallyTimeSpent" value="2689000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -226,7 +226,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Updated&#10;&#10; - added interfaces as jar&#10; - fixed problem with reset adapter for all blocks" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated&#10;&#10; - added interfaces as jar&#10; - fixed problem with reset adapter for all blocks" />
+    <MESSAGE value="Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Main.java">
@@ -292,8 +293,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
+        <state relative-caret-position="80">
+          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
         </state>
       </provider>
     </entry>
