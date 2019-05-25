@@ -1,9 +1,15 @@
 import java.io.*;
 
+/**
+ * Class to support logging errors
+ */
 public class Error {
     File log;
     BufferedWriter fileLog;
 
+    /**
+     * @param fileName name of log file
+     */
     Error(String fileName) {
         log = new File(fileName);
 
@@ -24,6 +30,9 @@ public class Error {
         }
     }
 
+    /**
+     * @param msg error message
+     */
     void message(String msg) {
         try {
             fileLog.write(msg);

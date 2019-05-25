@@ -1,11 +1,18 @@
 import java.io.*;
 import java.util.EnumMap;
 
+/**
+ * Class with crypting algorithm
+ */
 class Crypt {
     int keylen;
     int buf_len;
     String key;
 
+    /**
+     * @param params - file name of file with crypt parameters
+     * @throws IOException
+     */
     Crypt(String params) throws IOException{
         Grammar g = new Grammar(params);
         EnumMap<keys, String> m = g.parser();
@@ -15,6 +22,11 @@ class Crypt {
         keylen = key.length();
     }
 
+    /**
+     * @param input string to encode
+     * @param output result encoded string
+     * @throws IOException
+     */
     void encode(String input, String output) throws IOException {
          try {
             FileInputStream fin = new FileInputStream(input);
@@ -42,6 +54,11 @@ class Crypt {
         }
     }
 
+    /**
+     * @param input string to encode
+     * @param output result encoded string
+     * @throws IOException
+     */
     void decode(String input, String output) throws IOException {
         encode(input, output);
     }
