@@ -4,9 +4,9 @@ public class MainParser extends AbstractParser {
 
     static final Map<String, MainGrammar> grammarMap = new TreeMap<String, MainGrammar>();
     static {
-        grammarMap.put("input", MainGrammar.input);
-        grammarMap.put("output", MainGrammar.output);
-        grammarMap.put("mng_config", MainGrammar.managerConfig);
+        grammarMap.put("input", MainGrammar.input);               // input file name
+        grammarMap.put("output", MainGrammar.output);             // output file name
+        grammarMap.put("mng_config", MainGrammar.managerConfig);  // manager config file name
     }
 
     public MainParser() {

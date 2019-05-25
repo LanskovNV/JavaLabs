@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.*;
 
+/**
+ * Worker with xor algorithm
+ */
 public class Xorer implements Executor {
     private byte[] buf;
     private static String keyword;
@@ -12,6 +15,11 @@ public class Xorer implements Executor {
 
     public Xorer() {}
 
+    /**
+     * Encoding algorithm
+     * @param buf string to encode
+     * @return encoded buffer
+     */
     public byte[] Xor(byte[] buf) {
         int cnt = 0, keyWordLen = keyword.length();
         int bufsize = buf.length;
@@ -25,6 +33,10 @@ public class Xorer implements Executor {
         return buf;
     }
 
+    /**
+     * @param config config file name
+     * @return 1 if ok 0 if error
+     */
     public int setConfig(String config) {
         ExecutorParser parser = new ExecutorParser();
         if (parser.parseConfig(config) != 0)
@@ -39,6 +51,10 @@ public class Xorer implements Executor {
 
     public void setOutput(DataOutputStream out) { output = out; }
 
+    /**
+     * @param consumer1
+     * @return 1 if ok 0 if error
+     */
     public int setConsumer(Executor consumer1) {
         if(consumer1 == null) {
             return 1;
@@ -47,6 +63,11 @@ public class Xorer implements Executor {
         return 0;
     }
 
+    /**
+     * process buffer and give it to consumer
+     * @param buffer
+     * @return
+     */
     public int put(byte[] buffer) {
         buf = Arrays.copyOf(buffer, buffer.length);
         int bufLen = buf.length;
@@ -65,6 +86,10 @@ public class Xorer implements Executor {
         return 0;
     }
 
+    /**
+     * Init pipeline work
+     * @return 0 if ok 1 if error
+     */
     public int run() {
         int readBytesCounter;
 
@@ -87,6 +112,11 @@ public class Xorer implements Executor {
         return 0;
     }
 
+    /**
+     * Setting up xor params
+     * @param parser
+     * @return 0 if ok 1 if error
+     */
     private int setXORer(ExecutorParser parser) {
         EnumMap<ExecutorGrammar, String> exConfig = parser.getConfig();
         int blockSize = Integer.parseInt(exConfig.get(ExecutorGrammar.bufsize));
@@ -98,6 +128,10 @@ public class Xorer implements Executor {
         return 0;
     }
 
+    /**
+     * Read buffer
+     * @return num of bytes that was read, -1 if error
+     */
     private int readBytes() {
         try {
             return input.read(buf);
@@ -107,6 +141,9 @@ public class Xorer implements Executor {
         }
     }
 
+    /**
+     * @param len num of bytes to write from buffer
+     */
     private void writeBytes(int len) {
         try {
             output.write(buf, 0, len);
@@ -116,6 +153,9 @@ public class Xorer implements Executor {
         }
     }
 
+    /**
+     * @return 0 if ok 1 if error
+     */
     private int processBlock() {
         buf = Xor(buf);
 

@@ -8,7 +8,10 @@ public class ManagerParser extends AbstractParser {
     static final Map<String, ManagerGrammar> grammarMap = new TreeMap<>();
 
     static {
+        // number of executors in pipeline
         grammarMap.put("num_executors", ManagerGrammar.numExecutors);
+
+        // executors config name
         grammarMap.put("exec_config", ManagerGrammar.exConfigFileName);
     }
 

@@ -2,6 +2,9 @@ import java.io.*;
 import java.util.*;
 
 
+/**
+ * Manager that's a main class to pipeline work
+ */
 public class Manager {
 
     private Executor executors[];
@@ -9,6 +12,10 @@ public class Manager {
     private DataInputStream input;
     private DataOutputStream output;
 
+    /**
+     * @param baseConfig
+     * @return 0 if ok 1 if error
+     */
     public int openStreams(EnumMap<MainGrammar, String> baseConfig) {
         try {
             String in = baseConfig.get(MainGrammar.input);
@@ -24,6 +31,10 @@ public class Manager {
         return 0;
     }
 
+    /**
+     * @param baseConfig
+     * @return 0 if ok 1 if error
+     */
     public int createPipeline(EnumMap<MainGrammar, String> baseConfig) {
         ManagerParser mngParser = new ManagerParser();
         if(mngParser.parseConfig(baseConfig.get(MainGrammar.managerConfig)) != 0)
@@ -48,6 +59,10 @@ public class Manager {
         return 0;
     }
 
+    /**
+     * @param mngParser
+     * @return 0 if ok 1 if error
+     */
     private int setNumExecutors(ManagerParser mngParser) {
         numExecutors = mngParser.getNumExecutors();
         if(numExecutors < 1) {
@@ -57,6 +72,10 @@ public class Manager {
         return 0;
     }
 
+    /**
+     * @param exConfigs
+     * @return 0 if ok 1 if error
+     */
     private int setExecutors(List<String> exConfigs) {
         for(int i = 0; i < numExecutors; i++) {
             executors[i] = new Xorer();
@@ -77,6 +96,9 @@ public class Manager {
         return 0;
     }
 
+    /**
+     * Start pipeline work
+     */
     public void run() {
         if(executors[0].run() != 0) {
             ErrorLog.sendMessage("error in pipeline work");
