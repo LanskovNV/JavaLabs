@@ -1,5 +1,8 @@
 import java.io.*;
 
+/**
+ * Class to support logging errors
+ */
 public class ErrorLog {
 
     private static File log;
@@ -8,6 +11,11 @@ public class ErrorLog {
     private static FileWriter logWriter;
     private static BufferedWriter logBufWriter;
 
+
+    /**
+     * Prepare log file to work
+     * @return 0 if ok 1 if error
+     */
     public static int Init() {
         log = new File(fileLogName);
 
@@ -24,6 +32,9 @@ public class ErrorLog {
         return 0;
     }
 
+    /**
+     * @return 0 if ok 1 if error
+     */
     private static int createLogWriter() {
         try {
             logWriter = new FileWriter(log);
@@ -36,6 +47,9 @@ public class ErrorLog {
         }
     }
 
+    /**
+     * @param message error message
+     */
     public static void sendMessage(String message) {
         try {
             logBufWriter.write("Err: " + message + "\n");
@@ -46,6 +60,9 @@ public class ErrorLog {
         }
     }
 
+    /**
+     * Closing log file
+     */
     public static void close() {
         try {
             logBufWriter.close();
@@ -59,6 +76,4 @@ public class ErrorLog {
             }
         }
     }
-
-
 }

@@ -1,7 +1,9 @@
 import java.io.*;
 import java.util.*;
 
-
+/**
+ * Manager that's a main class to pipeline work
+ */
 public class Manager {
 
     private Executor executors[];
@@ -9,6 +11,10 @@ public class Manager {
     private DataInputStream input;
     private DataOutputStream output;
 
+    /**
+     * @param baseConfig
+     * @return 0 if ok 1 if error
+     */
     public int openStreams(EnumMap<MainGrammar, String> baseConfig) {
         try {
             String in = baseConfig.get(MainGrammar.input);
@@ -24,6 +30,10 @@ public class Manager {
         return 0;
     }
 
+    /**
+     * @param baseConfig
+     * @return 0 if ok 1 if error
+     */
     public int createPipeline(EnumMap<MainGrammar, String> baseConfig) {
         ManagerParser mngParser = new ManagerParser();
         if(mngParser.parseConfig(baseConfig.get(MainGrammar.managerConfig)) != 0)
@@ -50,6 +60,10 @@ public class Manager {
         return 0;
     }
 
+    /**
+     * @param mngParser
+     * @return 0 if ok 1 if error
+     */
     private int setNumExecutors(ManagerParser mngParser) {
         numExecutors = mngParser.getNumExecutors();
         if(numExecutors < 1) {
@@ -59,6 +73,11 @@ public class Manager {
         return 0;
     }
 
+    /**
+     * @param exConfigs list of executors config file names
+     * @param exClasses list of executors classes
+     * @return 0 if ok 1 if error
+     */
     private int setExecutors(List<String> exConfigs, List<String> exClasses) {
         for(int i = 0; i < numExecutors; i++) {
             try {
@@ -73,6 +92,12 @@ public class Manager {
         return 0;
     }
 
+    /**
+     *
+     * @param consumers all executors with their consumers,
+     *                 consumers[i][j] j consumer of i executor
+     * @return 0 if ok 1 if error
+     */
     private int setConsumers(int[][] consumers) {
         boolean gotLast = false;
         for(int i = 0; i < consumers.length; i++) {
@@ -100,6 +125,9 @@ public class Manager {
         executors[i].setOutput(output);
     }
 
+    /**
+     * Start pipeline work
+     */
     public void run() {
         if(executors[0].run() != 0) {
             ErrorLog.sendMessage("the pipeline work was incorrect");

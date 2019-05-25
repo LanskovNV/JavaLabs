@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.*;
 
+/**
+ * Worker with xor algorithm
+ */
 public class Xorer implements Executor {
 
     private byte[] buf;
@@ -27,6 +30,11 @@ public class Xorer implements Executor {
         operatedTypes[1] = APPROPRIATE_TYPES.CHAR;
     }
 
+    /**
+     * Encoding algorithm
+     * @param buf string to encode
+     * @return encoded buffer
+     */
     public byte[] XOR(byte[] buf) {
         int cnt = 0, keyWordLen = keyword.length();
         int buflen = buf.length;
@@ -39,6 +47,10 @@ public class Xorer implements Executor {
         return buf;
     }
 
+    /**
+     * @param config config file name
+     * @return 1 if ok 0 if error
+     */
     public int setConfig(String config) {
         ExecutorParser parser = new ExecutorParser();
         if (parser.parseConfig(config) != 0)
@@ -53,6 +65,10 @@ public class Xorer implements Executor {
 
     public void setOutput(DataOutputStream out) { output = out; }
 
+    /**
+     * @param consumer
+     * @return 1 if ok 0 if error
+     */
     public int setConsumer(Executor consumer) {
         if(consumer == null) {
             return 1;
@@ -68,6 +84,12 @@ public class Xorer implements Executor {
         return operatedTypes;
     }
 
+    /**
+     * Create correct adapter for current executor
+     * @param provider
+     * @param adapter
+     * @param type
+     */
     public void setAdapter(Executor provider, Object adapter, Executor.APPROPRIATE_TYPES type){
         for(int i = 0; i < operatedTypes.length; i++) {
             if(operatedTypes[i] == type) {
@@ -84,6 +106,11 @@ public class Xorer implements Executor {
         }
     }
 
+    /**
+     * Select correct adapter type
+     * @param consumer
+     * @return 0 if ok 1 if error
+     */
     private int setConnection(Executor consumer) {
         APPROPRIATE_TYPES consumersTypes[] = consumer.getConsumedTypes();
         switch(getAppropriateType(consumersTypes)) {
@@ -98,6 +125,10 @@ public class Xorer implements Executor {
         }
     }
 
+    /**
+     * Process block for all executors
+     * @return 0 if ok 1 if error
+     */
     private int processBlock() {
         buf = XOR(buf);
         if (consumers != null) {
@@ -112,6 +143,11 @@ public class Xorer implements Executor {
         return 0;
     }
 
+    /**
+     * process buffer and give it to consumer
+     * @param provider
+     * @return 0 if ok 1 if error
+     */
     public int put(Executor provider) {
         int ind = 0, i = 0;
         Arrays.fill(buf, (byte) 0);
@@ -154,6 +190,10 @@ public class Xorer implements Executor {
         return 0;
     }
 
+    /**
+     * Get new data to executor
+     * @param ind
+     */
     private void giveBuffNext(int ind) {
         if(consumers.size() == 0) {
             buf = XOR(buf);
@@ -167,6 +207,10 @@ public class Xorer implements Executor {
         }
     }
 
+    /**
+     * Init pipeline work
+     * @return 0 if ok 1 if error
+     */
     public int run() {
         int readBytesCounter;
 
@@ -208,6 +252,11 @@ public class Xorer implements Executor {
         }
     }
 
+    /**
+     * Setting up xor params
+     * @param parser
+     * @return 0 if ok 1 if error
+     */
     private int setXORer(ExecutorParser parser) {
         EnumMap<ExecutorGrammar, String> exConfig = parser.getConfig();
         int blockSize = Integer.parseInt(exConfig.get(ExecutorGrammar.bufsize));

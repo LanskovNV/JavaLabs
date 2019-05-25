@@ -4,9 +4,11 @@ public class ExecutorParser extends AbstractParser {
 
     static final Map<String, ExecutorGrammar> grammarMap = new TreeMap<String, ExecutorGrammar>();
     static {
+        // encode or decode, etc
         grammarMap.put("task", ExecutorGrammar.task);
         grammarMap.put("keyword", ExecutorGrammar.keyword);
         grammarMap.put("buf_size", ExecutorGrammar.bufsize);
+        // it is shift
         grammarMap.put("num_first", ExecutorGrammar.firstSymbolNum);
     }
 

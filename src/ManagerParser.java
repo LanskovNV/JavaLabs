@@ -4,9 +4,13 @@ public class ManagerParser extends AbstractParser {
 
     static final Map<String, ManagerGrammar> grammarMap = new TreeMap<>();
     static {
+        // num of executors at all
         grammarMap.put("ex_cnt", ManagerGrammar.numExecutors);
+        // type of executor
         grammarMap.put("ex_class", ManagerGrammar.exClass);
+        // executors config name
         grammarMap.put("ex_config", ManagerGrammar.exConfigFileName);
+        // array of consumers for current executor
         grammarMap.put("ex_consumers", ManagerGrammar.exConsumers);
     }
 
